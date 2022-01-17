@@ -3,6 +3,7 @@ import './style.css';
 const loadHeader = (function() {
   const header = document.createElement('h1');
   header.innerText = 'Pizzeria La Familia';
+  header.classList.add('header')
   
   document.body.insertBefore(header, document.querySelector('#content'));
 })();
