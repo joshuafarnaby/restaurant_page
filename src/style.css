@@ -35,7 +35,7 @@ body {
   cursor: pointer;
 }
 
-.content {
+#content {
   padding: 12px;
   margin-top: 24px;
   border-radius: 10px;

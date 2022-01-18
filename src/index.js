@@ -1,6 +1,6 @@
 import './style.css';
 import { loadHomePagePhoto, loadHomePageText} from './homeModule';
-import { appendChildNodes } from './domMethods';
+import { appendChildNodes, changeClass } from './domMethods';
 
 const loadHeader = (function() {
   const header = document.createElement('h1');
@@ -30,6 +30,8 @@ const pageController = (function() {
   const pageButtons = document.querySelectorAll('.button-container button');
   const contentDiv = document.getElementById('content');
 
+  let currentPage;
+
   const homePageElements = [loadHomePagePhoto(), loadHomePageText()];
 
   const changePage = (event) => {
@@ -37,12 +39,20 @@ const pageController = (function() {
 
     if (event.target.id == 'home') {
       appendChildNodes(contentDiv, homePageElements);
-      contentDiv.classList.add(event.target.id)
+      changeClass(contentDiv, currentPage, event.target.id);
       event.target.classList.add('active');
+      currentPage = event.target.id
+    } else {
+      console.log(currentPage);
     }
   }
 
   pageButtons.forEach(button => {
     button.addEventListener('click', changePage)
   });
+
+  appendChildNodes(contentDiv, homePageElements);
+  contentDiv.classList.add('home');
+  document.querySelector('#home').classList.add('active');
+  currentPage = 'home'
 })(); 
