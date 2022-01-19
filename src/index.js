@@ -1,7 +1,9 @@
 import './style.css';
 import { loadHomePagePhoto, loadHomePageText} from './homeModule';
-import { appendChildNodes, changeClass } from './domMethods';
-import { homeModule } from './menuModule';
+import { menuModule } from './menuModule';
+import { contactModule } from './contactModule';
+import { appendChildNodes, changeClass, removeChildren } from './domMethods';
+
 
 const loadHeader = (function() {
   const header = document.createElement('h1');
@@ -37,7 +39,8 @@ const pageController = (function() {
   let nextPage;
 
   const homePageElements = [loadHomePagePhoto(), loadHomePageText()];
-  const menuElements = homeModule.createMenuElements();
+  const menuElements = menuModule.createMenuElements();
+  const contactElements = [contactModule.getLocationImage(), contactModule.getLocationInfo()]
 
   const changeActiveButton = (current, next) => {
     pageButtons.forEach(button => {
@@ -46,24 +49,21 @@ const pageController = (function() {
     })
   }
 
-  const clearElements = () => contentDiv.innerHTML = ''
-
   const changePage = (event) => {
     if (event.target.classList.contains('active')) return;
 
     nextPage = event.target.id;
-    clearElements()
+    removeChildren(contentDiv);
 
     if (event.target.id == 'home') {
       appendChildNodes(contentDiv, homePageElements);
-      changeClass(contentDiv, currentPage, nextPage);
     } else if (event.target.id == 'menu') {
-      appendChildNodes(contentDiv, menuElements)
-      changeClass(contentDiv, currentPage, nextPage)
+      appendChildNodes(contentDiv, menuElements);
     } else {
-      console.log('contact');
+      appendChildNodes(contentDiv, contactElements);
     }
 
+    changeClass(contentDiv, currentPage, nextPage)
     changeActiveButton(currentPage, nextPage)
     currentPage = nextPage;
   }

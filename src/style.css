@@ -69,8 +69,19 @@ body {
 }
 
 .menu-item-image {
-  max-width: 200px;
+  max-width: 250px;
   border-radius: 8px;
+}
+
+.contact {
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  gap: 12px;
+}
+
+.location-image {
+  max-width: 300px;
 }
 
 .active {

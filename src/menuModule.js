@@ -2,7 +2,7 @@ import pepperoni from './menu-images/pepperoni.jpeg';
 import pepperoniSalami from './menu-images/pepperoniSalami.jpeg';
 import supreme from './menu-images/supreme.jpeg';
 
-export const homeModule = (function() {
+export const menuModule = (function() {
   const _pizzaImages = [pepperoni, pepperoniSalami, supreme];
   const _pizzaLabels = ['Pepperoni', 'Pepperoni and Salami', 'Supreme'];
 
