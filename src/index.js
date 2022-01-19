@@ -11,6 +11,7 @@ const loadHeader = (function() {
 })();
 
 const loadButtons = (function() {
+  // what about making an IIFE that controls the buttons and exporting a 'buildButtons' function to pageController?
   const buttonContainer = document.createElement('div');
   buttonContainer.classList.add('button-container');
 
@@ -31,20 +32,33 @@ const pageController = (function() {
   const contentDiv = document.getElementById('content');
 
   let currentPage;
+  let nextPage;
 
   const homePageElements = [loadHomePagePhoto(), loadHomePageText()];
+
+  const changeActiveButton = (current, next) => {
+    pageButtons.forEach(button => {
+      if (button.id == current) button.classList.remove('active');
+      if (button.id == next) button.classList.add('active');
+    })
+  }
 
   const changePage = (event) => {
     if (event.target.classList.contains('active')) return;
 
+    nextPage = event.target.id;
+
     if (event.target.id == 'home') {
       appendChildNodes(contentDiv, homePageElements);
-      changeClass(contentDiv, currentPage, event.target.id);
-      event.target.classList.add('active');
-      currentPage = event.target.id
-    } else {
+      changeClass(contentDiv, currentPage, nextPage);
+    } else if (event.target.id == 'menu') {
       console.log(currentPage);
+    } else {
+
     }
+
+    changeActiveButton(currentPage, nextPage)
+    currentPage = nextPage;
   }
 
   pageButtons.forEach(button => {
