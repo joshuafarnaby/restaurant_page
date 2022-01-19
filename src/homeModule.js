@@ -1,4 +1,4 @@
-import photo from './pizza.jpg';
+import photo from './pizza.jpeg';
 
 export function loadHomePagePhoto() {
   const homePhoto = new Image();

@@ -1,6 +1,7 @@
 import './style.css';
 import { loadHomePagePhoto, loadHomePageText} from './homeModule';
 import { appendChildNodes, changeClass } from './domMethods';
+import { homeModule } from './menuModule';
 
 const loadHeader = (function() {
   const header = document.createElement('h1');
@@ -29,12 +30,14 @@ const loadButtons = (function() {
 
 const pageController = (function() {
   const pageButtons = document.querySelectorAll('.button-container button');
+  // why not create a getter function in buttons module?
   const contentDiv = document.getElementById('content');
 
   let currentPage;
   let nextPage;
 
   const homePageElements = [loadHomePagePhoto(), loadHomePageText()];
+  const menuElements = homeModule.createMenuElements();
 
   const changeActiveButton = (current, next) => {
     pageButtons.forEach(button => {
@@ -43,18 +46,22 @@ const pageController = (function() {
     })
   }
 
+  const clearElements = () => contentDiv.innerHTML = ''
+
   const changePage = (event) => {
     if (event.target.classList.contains('active')) return;
 
     nextPage = event.target.id;
+    clearElements()
 
     if (event.target.id == 'home') {
       appendChildNodes(contentDiv, homePageElements);
       changeClass(contentDiv, currentPage, nextPage);
     } else if (event.target.id == 'menu') {
-      console.log(currentPage);
+      appendChildNodes(contentDiv, menuElements)
+      changeClass(contentDiv, currentPage, nextPage)
     } else {
-
+      console.log('contact');
     }
 
     changeActiveButton(currentPage, nextPage)
@@ -62,7 +69,8 @@ const pageController = (function() {
   }
 
   pageButtons.forEach(button => {
-    button.addEventListener('click', changePage)
+    button.addEventListener('click', changePage);
+    // create an event listener function in button module?
   });
 
   appendChildNodes(contentDiv, homePageElements);

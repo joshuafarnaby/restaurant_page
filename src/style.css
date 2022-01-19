@@ -55,6 +55,24 @@ body {
   margin-bottom: 12px;
 }
 
+.menu {
+  flex-direction: row;
+  justify-content: space-around;
+  gap: 16px;
+}
+
+.menu-item-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.menu-item-image {
+  max-width: 200px;
+  border-radius: 8px;
+}
+
 .active {
   text-decoration: underline;
 }
