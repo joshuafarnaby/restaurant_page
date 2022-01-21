@@ -1,5 +1,5 @@
 import { contentBuilder } from './contentBuilder';
-import { appendChildNodes } from './domMethods';
+import { modifyDOM } from './domMethods';
 
 export const contentLoader = (function() {
   let _homePageContent;
@@ -17,7 +17,7 @@ export const contentLoader = (function() {
       _homePageContent = contentBuilder.buildHomePageContent()
     }
 
-    appendChildNodes(parentNode, _homePageContent);
+    modifyDOM.appendChildNodes(parentNode, _homePageContent);
   }
 
   const loadMenuPageContent = (parentNode) => {
@@ -25,7 +25,7 @@ export const contentLoader = (function() {
       _menuPageContent = contentBuilder.buildMenuPageContent();
     }
 
-    appendChildNodes(parentNode, _menuPageContent);
+    modifyDOM.appendChildNodes(parentNode, _menuPageContent);
   }
 
   const loadContactPageContent = (parentNode) => {
@@ -33,13 +33,26 @@ export const contentLoader = (function() {
       _contactPageContent = contentBuilder.buildContactPageContent();
     }
 
-    appendChildNodes(parentNode, _contactPageContent);
+    modifyDOM.appendChildNodes(parentNode, _contactPageContent);
+  }
+
+  const loadDefault = (parentNode, defaultPage) => {
+    parentNode.classList.add(defaultPage);
+    
+    if (defaultPage == 'home') {
+      loadHomePageContent(parentNode);
+    } else if (defaultPage == 'menu') {
+      loadMenuPageContent(parentNode);
+    } else {
+      loadContactPageContent(parentNode);
+    }
   }
 
   return {
     loadBasicPageStructure,
     loadHomePageContent,
     loadMenuPageContent,
-    loadContactPageContent
+    loadContactPageContent,
+    loadDefault
   }
 })();
